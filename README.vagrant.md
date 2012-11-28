@@ -6,20 +6,6 @@ and portable development environments." Vagrant itself is a virtual instance
 creation and startup tool on top of Oracle VirtualBox which takes care of the
 virtualisation.
 
-Install Vagrant (with iPython, BeautifulSoup, Elasticsearch and MySQL)
---------------------------
-Download this [zip][zip] file, unzip it and move the contents into the top of the directory.
-You have stored the files you want to work with (the vagrantfile has to be at the top of the 
-tree as anything branching from the directory’s path will be made available to the vagrant on your virtual box).
-
-* `vagrant up`: creates your vagrant for the first time, you only need to do this once
-* `vagrant ssh`: logs you on to your vagrant where you can run your files using MySQL, Elasticsearch, etc
-* `ls`: lists the files on your vagrant, this will include all the files in the directory you are working in
-* `exit`: logs you off your vagrant
-* `vagrant destroy`: once you have run your programmes and copied all the files created onto your directory you can destroy your vagrant and free up space
-
-This is the vagrant in the skel repository
-
 Install Vagrant (Ubuntu)
 ------------------------
 Install the Open Source Edition of VirtualBox:
@@ -38,32 +24,37 @@ Then install Vagrant itself:
 
 Creating the VM
 ---------------
-Start the VMs defined in `VagrantFile`:
+Start the VM defined in `VagrantFile`:
 
-    /opt/vagrant/bin/vagrant up
+    vagrant up
 
 And ssh onto it:
 
-    /opt/vagrant/bin/vagrant ssh
+    vagrant ssh
 
 
 Vagrant Commmands
 -----------------
+* `vagrant up`: creates your vagrant for the first time, you only need to do this once
+* `vagrant ssh`: logs you on to your vagrant where you can run your files using MySQL, Elasticsearch, etc
+* `exit`: logs you off your vagrant
+* `vagrant destroy`: once you have run your programmes and copied all the files created onto your directory you can destroy your vagrant and free up space.
 
-* `/opt/vagrant/bin/vagrant suspend`: Disable the virtual instance. The
+
+Less Useful Vagrant Commands
+----------------------------
+* `vagrant box list`: Get a list of the box images already imported into vagrant.
+  These are the boxes that have been downloaded from the Internet or otherwise
+  created in your local Vagrant. You won't need the Internet to up any of these.
+* `vagrant box remove <box-name>`: Delete the named vagrant box from your local
+  vagrant. After deleting a box, the next time `vagrant up` is run, it will be
+  downloaded and imported again.
+* `vagrant suspend`: Disable the virtual instance. The
   allocated disc space for the instance is retained but the instance will not be
   available. The running state at suspend time is saved for resumption.
-* `/opt/vagrant/bin/vagrant resume`: Wake up a previously suspended virtual
-  instance.
-* `/opt/vagrant/bin/vagrant halt`: Turn off the virtual instance. Calling
-  `vagrant up` after this is the equivalent of a reboot.
-* `/opt/vagrant/bin/vagrant up --no-provision`: Bring up the virtual instance
-  without doing the provisioning step. Useful if the provisioning step is
-  destructive.
-* `/opt/vagrant/bin/vagrant destroy`: Hose your virtual instance, reclaiming the
-  allocated disc space.
-* `/opt/vagrant/bin/vagrant provision`: Rerun puppet or chef provisioning on the
-  virtual instance.
+* `vagrant resume`: Wake up a previously suspended virtual instance.
+* `vagrant halt`: Turn off the virtual instance. Calling `vagrant up` after this
+  is the equivalent of a reboot.
 
 
 Vagrant SSH X Forwarding
@@ -82,7 +73,6 @@ Then X applications started from the VM should display on the host machine.
 
 Vagrant Troubleshooting
 -----------------------
-
 To see more verbose output on any vagrant command, add a VAGRANT_LOG environment
 variable setting, e.g.:
 
@@ -94,5 +84,4 @@ GUI window on boot.
 
 
 [vagrant]: http://vagrantup.com
-[zip]: https://dl.dropbox.com/u/29645873/nicola.zip
 [virtualbox-download]: https://www.virtualbox.org/wiki/Linux_Downloads
